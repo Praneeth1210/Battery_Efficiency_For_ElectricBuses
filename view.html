@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>View Efficient Batteries</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #ffffff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00e676;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1e1e1e;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #333;
+      text-align: center;
+    }
+
+    th {
+      background-color: #00e676;
+      color: #000;
+    }
+
+    tr:nth-child(even) {
+      background-color: #2c2c2c;
+    }
+
+    tr:hover {
+      background-color: #383838;
+    }
+
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #03a9f4;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+
+    .back-btn:hover {
+      background: #0288d1;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔋 Efficient Batteries</h1>
+
+  <table id="batteryTable">
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Model ID</th>
+        <th>Year</th>
+        <th>Efficiency (%)</th>
+        <th>Predicted Range (km)</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <a href="index.html" class="back-btn">← Back to Predictor</a>
+
+  <script>
+    fetch("http://localhost:5000/view")
+      .then((res) => res.json())
+      .then((data) => {
+        const table = document.querySelector("#batteryTable tbody");
+        data.forEach((item) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${item.company}</td>
+            <td>${item.model_id}</td>
+            <td>${item.year}</td>
+            <td>${item.efficiency_percent}%</td>
+            <td>${item.predicted_range} km</td>
+          `;
+          table.appendChild(row);
+        });
+      })
+      .catch((err) => {
+        console.error("Failed to fetch data:", err);
+        document.querySelector("table").innerHTML =
+          "<tr><td colspan='5'>Failed to load data.</td></tr>";
+      });
+  </script>
+
+</body>
+</html>

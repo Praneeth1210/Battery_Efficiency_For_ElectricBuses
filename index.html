@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electric Bus Predictor Dashboard</title>
+  <!-- Google Fonts for modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Top Bar with View Button -->
+  <div class="top-bar">
+    <div class="logo">
+      <span class="logo-icon">🔋</span>
+      <span class="logo-text">E-Battery Efficiency Predictor</span>
+    </div>
+    <button id="view-btn" onclick="window.location.href='view.html'">View Efficient Batteries</button>
+  </div>
+
+  <div class="container">
+    <h1>Battery Efficiency Predictor</h1>
+    <form id="predictForm">
+      <input type="number" id="avg_speed" placeholder="Average Speed (km/h)" required />
+      <input type="number" id="distance" placeholder="Distance (km)" required />
+      <input type="number" id="battery" placeholder="Battery Capacity (kWh)" required />
+      <input type="number" id="top_speed" placeholder="Top Speed (km/h)" required />
+      <input type="number" id="passenger" placeholder="Passenger Capacity" required />
+
+      <select id="road_type" required>
+        <option value="">Select Road Type</option>
+        <option value="Highway">Highway</option>
+        <option value="Urban">Urban</option>
+        <option value="Rural">Rural</option>
+      </select>
+
+      <select id="bus_type" required>
+        <option value="">Select Bus Type</option>
+        <option value="Standard City Bus">Standard City Bus</option>
+        <option value="Articulated Bus">Articulated Bus</option>
+        <option value="Mini Bus">Mini Bus</option>
+        <option value="Double Decker Bus">Double Decker Bus</option>
+      </select>
+
+      <select id="charger_type" required>
+        <option value="">Select Charger Type</option>
+        <option value="Depot">Depot</option>
+        <option value="Fast DC">Fast DC</option>
+        <option value="Pantograph">Pantograph</option>
+      </select>
+
+      <button type="submit">⚡ Predict Range</button>
+    </form>
+
+    <!-- Loader Spinner -->
+    <div id="loader" class="spinner"></div>
+    
+    <!-- Prediction Result -->
+    <p id="result"></p>
+    
+    <!-- Charts -->
+    <canvas id="rangeChart" width="400" height="200"></canvas>
+    <canvas id="pieChart" width="300" height="200" style="margin-top: 30px;"></canvas>
+  </div>
+
+  <!-- Upload Modal -->
+  <div id="uploadModal" class="modal">
+    <div class="modal-content">
+      <h2>High Efficiency Detected!</h2>
+      <p>Your battery efficiency is above 90%. Would you like to share your battery details?</p>
+      <form id="uploadForm">
+        <input type="text" id="company" placeholder="Company Name" required />
+        <input type="text" id="model_id" placeholder="Battery Model ID" required />
+        <input type="number" id="year" placeholder="Manufacture Year" required />
+        <button type="submit">Yes, Upload</button>
+        <button type="button" onclick="closeModal()">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
